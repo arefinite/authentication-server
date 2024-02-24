@@ -10,7 +10,6 @@ import cookieParser from 'cookie-parser'
 export const app = express()
 
 //middlewares
-app.set('trust proxy', 1)
 app.use(cookieParser())
 app.use(express.json())
 app.use(urlencoded({ extended: true }))
