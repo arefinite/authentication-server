@@ -10,6 +10,7 @@ export const generateToken = (res: Response, id: string) => {
   //store token in cookie
   res.cookie('auth_token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'PRODUCTION'
+    secure: process.env.NODE_ENV === 'PRODUCTION',
+    sameSite:false
   })
 }
