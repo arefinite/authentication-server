@@ -80,7 +80,7 @@ export const login = async (
 // * Access: Private
 export const logout = async (req: Request, res: Response) => {
   res.clearCookie('auth_token')
-  res.send()
+  res.status(200).json({ success: true, message: 'Logout successful' })
 }
 
 // * Desc: Validate User
@@ -89,5 +89,29 @@ export const logout = async (req: Request, res: Response) => {
 // * Access: Private
 export const validateUser = async (req: Request, res: Response) => {
   res.status(200).json({ success: true, userId: req.userId })
-  
+}
+
+// * Desc: Get user information
+// * URL: /api/v1/auth/user-info
+// * Method: GET
+// * Access: Private
+export const userInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const id = req.userId
+  try {
+    const user = await User.findById(id)
+    if (!user) return next(createHttpError(400, 'User not found'))
+    res.status(200).json({
+      success: true,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+    })
+  } catch (err) {
+    next(createHttpError(500, 'Something went wrong'))
+  }
 }
