@@ -4,27 +4,29 @@ import cors from 'cors'
 import 'dotenv/config'
 import { authRouter } from './routes/auth'
 import createHttpError, { isHttpError } from 'http-errors'
+import cookieParser from 'cookie-parser'
 
-// * initialize express app
+//initialize express app
 export const app = express()
 
-// * middlewares
-if (process.env.NODE_ENV === 'DEVELOPMENT') {
-  app.use(morgan('dev'))
-}
+//middlewares
+app.use(cookieParser())
+app.use(express.json())
+app.use(urlencoded({ extended: true }))
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 )
-app.use(express.json())
-app.use(urlencoded({ extended: true }))
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  app.use(morgan('dev'))
+}
 
-// * routes
+//routes
 app.use('/api/v1/auth', authRouter)
 
-// * error handlers
+//error handlers
 app.use((req, res, next) => {
   next(createHttpError(404, 'Invalid endpoint'))
 })
