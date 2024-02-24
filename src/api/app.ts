@@ -18,6 +18,7 @@ app.use(
     origin: process.env.FRONTEND_URL,
     credentials: true,
     allowedHeaders: '*'
+    
   })
 )
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
