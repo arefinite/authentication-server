@@ -89,5 +89,5 @@ export const logout = async (req: Request, res: Response) => {
 // * Access: Private
 export const validateUser = async (req: Request, res: Response) => {
   res.status(200).json({ success: true, userId: req.userId })
-  // res.status(200).json({ message: 'hi' })
+  
 }
