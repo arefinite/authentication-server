@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
-    allowedHeaders: ['get', 'post', 'put', 'delete','patch']
+    allowedHeaders: '*'
   })
 )
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
